@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd
+      http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!-- users -->
+    <changeSet id="v1.0.0.0" author="Alexander_Tyagunov">
+        <ext:createCollection collectionName="users">
+            <ext:options>
+                {
+                validator: {
+                    $jsonSchema: {
+                        bsonType: "object",
+                        required: ["first_name", "email", "is_signature_ready"],
+                        properties: {
+                            first_name: {
+                            bsonType: "string",
+                            description: "User's First Name"
+                            },
+                            last_name: {
+                            bsonType: "string",
+                            description: "User's Last Name"
+                            },
+                            email: {
+                            bsonType: "string",
+                            description: "User's Email"
+                            },
+                            is_signature_ready: {
+                            bsonType: "bool"
+                            description: "Status of User's Signature"
+                            }
+                          }
+                        }
+                    },
+                    validationAction: "warn",
+                    validationLevel: "strict"
+                }
+            </ext:options>
+        </ext:createCollection>
+    </changeSet>
+
+    <changeSet id="v1.0.0.1" author="Alexander_Tyagunov">
+        <ext:createIndex collectionName="users">
+            <ext:keys>
+                { email: 1, type: 1 }
+            </ext:keys>
+            <ext:options>
+                { unique: true, name: "user_email_index" }
+            </ext:options>
+        </ext:createIndex>
+    </changeSet>
+
+</databaseChangeLog>
