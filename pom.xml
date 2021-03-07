@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>model</module>
+        <module>database</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,6 +24,7 @@
         <openapi.version>1.5.3</openapi.version>
         <orika.version>1.5.4</orika.version>
         <orikastarter.version>1.9.0</orikastarter.version>
+        <mongodb.version>3.12.8</mongodb.version>
     </properties>
 
     <build>
@@ -40,7 +42,12 @@
         <dependencies>
             <dependency>
                 <groupId>net.cryptodoc</groupId>
-                <artifactId>cryptodoc-users</artifactId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.cryptodoc</groupId>
+                <artifactId>database</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -67,6 +74,11 @@
                 <groupId>net.rakugakibox.spring.boot</groupId>
                 <artifactId>orika-spring-boot-starter</artifactId>
                 <version>${orikastarter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>${mongodb.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
