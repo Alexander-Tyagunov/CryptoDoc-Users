@@ -6,6 +6,7 @@
     <modules>
         <module>model</module>
         <module>database</module>
+        <module>implementation</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,7 +25,8 @@
         <openapi.version>1.5.3</openapi.version>
         <orika.version>1.5.4</orika.version>
         <orikastarter.version>1.9.0</orikastarter.version>
-        <mongodb.version>3.12.8</mongodb.version>
+        <dgs.version>3.7.1</dgs.version>
+        <liquibase.version>4.3.1</liquibase.version>
     </properties>
 
     <build>
@@ -51,8 +53,8 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.epam.verifier</groupId>
-                <artifactId>verifier-model</artifactId>
+                <groupId>net.cryptodoc</groupId>
+                <artifactId>implementation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -76,9 +78,14 @@
                 <version>${orikastarter.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${mongodb.version}</version>
+                <groupId>com.netflix.graphql.dgs</groupId>
+                <artifactId>graphql-dgs-spring-boot-starter</artifactId>
+                <version>${dgs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

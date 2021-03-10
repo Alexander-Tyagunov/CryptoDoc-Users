@@ -1,0 +1,18 @@
+type Query {
+    signatures(signatureFilter: Boolean): [User]
+    users(firstNameFilter: String): [User],
+    getSingleUserByEmail(emailFilter: String): User
+}
+
+type Mutation {
+    addUser(id: String, firstName: String, lastName: String, email: String, isSignatureReady: Boolean):User
+    updateSignature(sig: Boolean, email: String): User
+}
+
+type User {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    isSignatureReady: Boolean
+}
