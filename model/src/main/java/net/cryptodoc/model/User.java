@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 
 @Data
 @NoArgsConstructor
@@ -31,9 +30,4 @@ public class User {
     private String email;
 
     private Boolean isSignatureReady;
-
-    @PrePersist
-    private void setIsSignatureReady() {
-        this.isSignatureReady = false;
-    }
 }

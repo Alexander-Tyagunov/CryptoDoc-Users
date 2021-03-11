@@ -7,6 +7,7 @@
         <module>model</module>
         <module>database</module>
         <module>implementation</module>
+        <module>api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -55,6 +56,11 @@
             <dependency>
                 <groupId>net.cryptodoc</groupId>
                 <artifactId>implementation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.cryptodoc</groupId>
+                <artifactId>api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

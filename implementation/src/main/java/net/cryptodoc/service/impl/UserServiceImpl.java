@@ -1,9 +1,11 @@
 package net.cryptodoc.service.impl;
 
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
+import ma.glasnost.orika.MapperFacade;
 import net.cryptodoc.exceptions.SignatureIsValidException;
-import net.cryptodoc.exceptions.UserExistsException;
 import net.cryptodoc.exceptions.UserEmailNotFoundException;
+import net.cryptodoc.exceptions.UserExistsException;
 import net.cryptodoc.exceptions.UserIdNotFoundException;
 import net.cryptodoc.model.User;
 import net.cryptodoc.repository.UserRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -19,6 +22,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final MapperFacade mapperFacade;
 
     @Override
     @Transactional(readOnly = true)
@@ -41,16 +45,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        if (repository.findByEmail(user.getEmail()).isPresent()) {
-            throw new UserExistsException(user.getEmail());
+    public User create(DataFetchingEnvironment environment) {
+        Map<String, Object> input = environment.getArgument("input");
+        User userToCreate = mapperFacade.map(input, User.class);
+        if (repository.findByEmail(userToCreate.getEmail()).isPresent()) {
+            throw new UserExistsException(userToCreate.getEmail());
         }
-        return repository.insert(user);
+        return repository.insert(userToCreate.setIsSignatureReady(false));
     }
 
     @Override
-    public User updateSignatureStatus(User user) {
-        User actualUser = getById(user.getId());
+    public User updateSignatureStatus(DataFetchingEnvironment environment) {
+        Map<String, Object> input = environment.getArgument("input");
+        User requestedUser = mapperFacade.map(input, User.class);
+        User actualUser = getByEmail(requestedUser.getEmail());
         checkSignatureStatus(actualUser);
         actualUser.setIsSignatureReady(true);
         return repository.save(actualUser);
