@@ -1,0 +1,29 @@
+type Query {
+    getUsers: [User],
+    getUserByEmail(email: String): User,
+    getUserById(id: String): User
+}
+
+type Mutation {
+    updateSignatureStatus(input: UpdateSignature): User,
+    createUser(input: UserForm): User
+}
+
+input UpdateSignature {
+    email: String,
+    status: Boolean
+}
+
+input UserForm {
+    firstName: String,
+    lastName: String,
+    email: String
+}
+
+type User {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    isSignatureReady: Boolean
+}
